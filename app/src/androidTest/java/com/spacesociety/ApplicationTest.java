@@ -1,4 +1,4 @@
-package com.spacesociety.karthikravishankar.space_sv;
+package com.spacesociety;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
