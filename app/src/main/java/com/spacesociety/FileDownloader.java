@@ -30,7 +30,7 @@ public class FileDownloader {
 
             mUrlConnection.connect();
             if (mUrlConnection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                Toast.makeText(context, "Server returned HTTP " + mUrlConnection.getResponseCode()
+                Toast.makeText(context, "Server returned HTTP: " + mUrlConnection.getResponseCode()
                                 + " " + mUrlConnection.getResponseMessage(),
                         Toast.LENGTH_SHORT).show();
             }

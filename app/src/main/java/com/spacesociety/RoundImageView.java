@@ -17,6 +17,9 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+/**
+ * This class is used to create RoundImage.
+ */
 public class RoundImageView extends ImageView {
 
     private static final String COLOR = "#BAB399";
