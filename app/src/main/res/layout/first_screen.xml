@@ -33,7 +33,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:text="EXPLORE!" />
+        android:text="EXPLORE!"
+        android:onClick="exploreMore"/>
 
 
 </RelativeLayout>

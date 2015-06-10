@@ -29,9 +29,6 @@
             android:name="com.spacesociety.PdfFirstScreen"
             android:label="@string/title_activity_pdf_firstscreen"></activity>
         <activity
-            android:name="com.spacesociety.RoundImageView"
-            android:label="@string/title_activity_round_image_view"></activity>
-        <activity
             android:name="com.spacesociety.PdfLibrary"
             android:label="@string/title_activity_pdf_library"></activity>
     </application>
