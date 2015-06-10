@@ -16,8 +16,12 @@ import android.widget.Button;
 public class PdfFirstScreen extends Activity {
 
     private static RoundImageView mImage;
-    private static Button mReadOn;
     private static Bitmap mIcon;
+
+    public void readOn(View v) {
+        startActivity(new Intent(PdfFirstScreen.this, PdfLibrary.class));
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +30,6 @@ public class PdfFirstScreen extends Activity {
         mImage = (RoundImageView) findViewById(R.id.pdfimage);
         mIcon = BitmapFactory.decodeResource(getResources(), R.drawable.pdf_firstscreen);
         mImage.setImageBitmap(mIcon);
-        mReadOn = (Button) findViewById(R.id.readon);
-        mReadOn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PdfFirstScreen.this, PdfLibrary.class);
-                startActivity(intent);
-            }
-        });
     }
 
 }
