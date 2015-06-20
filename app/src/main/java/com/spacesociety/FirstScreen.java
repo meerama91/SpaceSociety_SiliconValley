@@ -13,7 +13,6 @@ public class FirstScreen extends Activity {
 
     public void exploreMore(View v) {
         startActivity(new Intent(FirstScreen.this, MenuGrid.class));
-        finish();
     }
 
     @Override

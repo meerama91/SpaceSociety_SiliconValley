@@ -16,6 +16,7 @@ public class MenuGrid extends Activity {
     private static final String[] MENU_INDEX = {"WEBSITE", "PDF", "MP3"};
     private static final int WEB_DATA = 0;
     private static final int PDF = 1;
+    private static final int MP3 = 2;
 
     private static GridView mGrid;
     private static int image_id[] = {R.drawable.s3v_logo, R.drawable.bookreadericon, R.drawable.mp3icon};
@@ -39,9 +40,12 @@ public class MenuGrid extends Activity {
                         startActivity(intent);
                         break;
                     case PDF:
-                        intent = new Intent(MenuGrid.this, PdfFirstScreen.class);
+                        intent = new Intent(MenuGrid.this, PdfLibrary.class);
                         startActivity(intent);
                         break;
+                    case MP3:
+                        intent = new Intent(MenuGrid.this, Mp3Library.class);
+                        startActivity(intent);
                 }
             }
         });

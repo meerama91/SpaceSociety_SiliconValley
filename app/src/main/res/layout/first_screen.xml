@@ -10,21 +10,16 @@
     tools:mContext=".MainActivity">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
-    <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="142dp"
         android:text="SPACE SOCIETY\n           OF\nSILICON VALLEY"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#F8F8FF" />
+        android:textColor="#F8F8FF"
+        android:textSize="30dp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/explore"
@@ -33,8 +28,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:text="EXPLORE!"
-        android:onClick="exploreMore"/>
+        android:onClick="exploreMore"
+        android:text="EXPLORE"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>
