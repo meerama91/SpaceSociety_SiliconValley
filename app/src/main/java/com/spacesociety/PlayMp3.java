@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -65,7 +66,9 @@ public class PlayMp3 extends Activity {
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                                                @Override
                                                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+                                                   if (mediaPlayer != null && fromUser) {
+                                                       mediaPlayer.seekTo(progress);
+                                                   }
                                                }
 
                                                @Override
