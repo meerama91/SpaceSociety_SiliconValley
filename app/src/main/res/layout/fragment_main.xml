@@ -132,7 +132,8 @@
                     android:layout_marginTop="2dp"
                     android:layout_marginLeft="35dp"
                     android:layout_marginRight="35dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:id="@+id/linearLayout_website_button">
 
                 <RelativeLayout
                         android:layout_width="75dp"

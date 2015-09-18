@@ -12,11 +12,16 @@
         <item name="android:background">@color/main_color</item>
         <item name="android:textColor">@color/white_color</item>
         <item name="android:titleTextStyle">@style/MyTitleTheme</item>
+        <item name="android:popupMenuStyle">@style/MyPopupMenu</item>
     </style>
 
     <style name="MyTitleTheme"
            parent="@android:style/TextAppearance.Small">
         <item name="android:textColor">@color/white_color</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MyPopupMenu" parent="android:style/Widget.Holo.Light.ListPopupWindow">
+        <item name="android:popupBackground">@color/white_color</item>
     </style>
 </resources>

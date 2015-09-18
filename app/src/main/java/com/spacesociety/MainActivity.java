@@ -24,7 +24,6 @@ public class MainActivity extends Activity {
                     .commit();
         }
 
-        //TODO should be done before onCreate()
         //add color to action bar
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -37,20 +36,25 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_main) {
+            return true;
+        } else
+        if (id == R.id.action_pdf) {
+            return true;
+        } else
+        if (id == R.id.action_mp3) {
+            return true;
+        } else
+        if (id == R.id.action_website) {
             return true;
         }
 

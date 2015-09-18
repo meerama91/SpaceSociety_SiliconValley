@@ -24,6 +24,7 @@ public class MainFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
         setPdfLibraryButton();
         setMp3LibraryButton();
+        setWebsiteButton();
         return rootView;
     }
 
@@ -44,14 +45,29 @@ public class MainFragment extends Fragment {
 
     private void setMp3LibraryButton() {
 
-        LinearLayout pdfLibraryButton = (LinearLayout)rootView.findViewById(R.id.linearLayout_mp3_library_button);
-        pdfLibraryButton.setOnClickListener(new View.OnClickListener() {
+        LinearLayout mp3LibraryButton = (LinearLayout)rootView.findViewById(R.id.linearLayout_mp3_library_button);
+        mp3LibraryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment fragment = new Mp3LibraryFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, fragment, "Mp3LibraryFragment")
+                        .commit();
+            }
+        });
+    }
+
+    private void setWebsiteButton() {
+
+        LinearLayout websiteButton = (LinearLayout)rootView.findViewById(R.id.linearLayout_website_button);
+        websiteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new WebsiteFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, fragment, "WebsiteFragment")
                         .commit();
             }
         });
