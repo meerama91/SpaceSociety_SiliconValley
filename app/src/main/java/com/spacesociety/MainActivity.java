@@ -11,21 +11,27 @@ import android.view.*;
 
 public class MainActivity extends Activity {
 
+    MainFragment mainFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mainFragment = new MainFragment();
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new MainFragment())
+                    .add(R.id.container, mainFragment, "MainFragment")
                     .commit();
         }
 
+        //TODO should be done before onCreate()
         //add color to action bar
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(this.getResources().getColor(R.color.dark_main_color));
+        //hide icon
+        getActionBar().setDisplayShowHomeEnabled(false);
     }
 
 
@@ -49,6 +55,15 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(mainFragment!=null && !mainFragment.isVisible()) {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, mainFragment, "MainFragment")
+                    .commit();
+        }
     }
 
 }

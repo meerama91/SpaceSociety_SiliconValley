@@ -16,28 +16,46 @@ import android.widget.TextView;
  */
 public class MainFragment extends Fragment {
 
+    View rootView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        setPdfLibraryButton();
+        setMp3LibraryButton();
+        return rootView;
+    }
+
+    private void setPdfLibraryButton() {
 
         LinearLayout pdfLibraryButton = (LinearLayout)rootView.findViewById(R.id.linearLayout_pdf_library_button);
-        //TextView pdfLibraryButton = (TextView)getView().findViewById(R.id.textView_pdf_library_button);
         pdfLibraryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment fragment = new PdfLibraryFragment();
-                // Insert the fragment by replacing any existing fragment
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, fragment)
+                        .replace(R.id.container, fragment, "PdfLibraryFragment")
                         .commit();
             }
         });
-
-        return rootView;
     }
 
+    private void setMp3LibraryButton() {
+
+        LinearLayout pdfLibraryButton = (LinearLayout)rootView.findViewById(R.id.linearLayout_mp3_library_button);
+        pdfLibraryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new Mp3LibraryFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, fragment, "Mp3LibraryFragment")
+                        .commit();
+            }
+        });
+    }
 
 
 }
