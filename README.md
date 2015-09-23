@@ -11,7 +11,4 @@ TODO:
   - mp3 live streaming
   - edit network check
   - edit getting context
-  - edit variables names - set common style
   - set stack of fragments with navigation
-* currently working on
-  - UI for mp3 player
