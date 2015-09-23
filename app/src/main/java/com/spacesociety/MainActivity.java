@@ -1,28 +1,27 @@
 package com.spacesociety;
 
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.view.*;
+import com.spacesociety.fragments.MainFragment;
+import com.spacesociety.fragments.Mp3LibraryFragment;
+import com.spacesociety.fragments.PdfLibraryFragment;
+import com.spacesociety.fragments.WebsiteFragment;
 
 
 public class MainActivity extends Activity {
 
-    MainFragment mainFragment;
+    public MainFragment mainFragment;
+    public PdfLibraryFragment pdfLibraryFragment;
+    public Mp3LibraryFragment mp3LibraryFragment;
+    public WebsiteFragment websiteFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mainFragment = new MainFragment();
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, mainFragment, "MainFragment")
-                    .commit();
-        }
 
         //add color to action bar
         Window window = this.getWindow();
@@ -31,8 +30,21 @@ public class MainActivity extends Activity {
         window.setStatusBarColor(this.getResources().getColor(R.color.dark_main_color));
         //hide icon
         getActionBar().setDisplayShowHomeEnabled(false);
-    }
+        //create  fragments
+        mainFragment = new MainFragment();
+        pdfLibraryFragment = new PdfLibraryFragment();
+        mp3LibraryFragment = new Mp3LibraryFragment();
+        websiteFragment = new WebsiteFragment();
 
+        if (savedInstanceState == null) {
+            getFragmentManager().beginTransaction()
+                    .add(R.id.container, mainFragment)
+                    .commit();
+        }
+
+
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -46,15 +58,30 @@ public class MainActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_main) {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, mainFragment)
+                    .commit();
             return true;
         } else
         if (id == R.id.action_pdf) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, pdfLibraryFragment)
+                    .commit();
             return true;
         } else
         if (id == R.id.action_mp3) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, mp3LibraryFragment)
+                    .commit();
             return true;
         } else
         if (id == R.id.action_website) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, websiteFragment)
+                    .commit();
             return true;
         }
 
@@ -65,8 +92,10 @@ public class MainActivity extends Activity {
     public void onBackPressed() {
         if(mainFragment!=null && !mainFragment.isVisible()) {
             getFragmentManager().beginTransaction()
-                    .replace(R.id.container, mainFragment, "MainFragment")
+                    .replace(R.id.container, mainFragment)
                     .commit();
+        } else {
+            super.onBackPressed();
         }
     }
 

@@ -1,4 +1,4 @@
-package com.spacesociety;
+package com.spacesociety.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+import com.spacesociety.R;
 
 /**
  * Created by julep on 9/18/15.
@@ -25,6 +26,8 @@ public class WebsiteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getActivity().setTitle("Space Society SV Website");
 
         View rootView = inflater.inflate(R.layout.fragment_website, container, false);
 

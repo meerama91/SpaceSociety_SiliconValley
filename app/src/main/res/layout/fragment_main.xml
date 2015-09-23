@@ -41,12 +41,13 @@
                         android:id="@+id/textView_main"
                         android:layout_width="fill_parent"
                         android:layout_height="match_parent"
-                        android:text="Welcome to Space Society of Silicon Valley!"
-                        android:paddingLeft="25dp"
-                        android:paddingRight="20dp"
+                        android:text="Welcome \nto Space Society of Silicon Valley"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         android:layout_gravity="center"
-                        android:gravity="center_vertical"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:gravity="center"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
                         android:textColor="@color/white_color"
                         android:background="@color/main_color"/>
 

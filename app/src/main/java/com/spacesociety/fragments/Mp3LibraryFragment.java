@@ -1,4 +1,4 @@
-package com.spacesociety;
+package com.spacesociety.fragments;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -16,6 +16,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import com.spacesociety.FileDownloader;
+import com.spacesociety.PlayMp3;
+import com.spacesociety.R;
 
 import java.io.File;
 import java.io.IOException;
@@ -123,6 +126,8 @@ public class Mp3LibraryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getActivity().setTitle("MP3 Library");
 
         View rootView = inflater.inflate(R.layout.fragment_mp3_library, container, false);
         mListView = (ListView)rootView.findViewById(R.id.listView_mp3_library_fragment);
