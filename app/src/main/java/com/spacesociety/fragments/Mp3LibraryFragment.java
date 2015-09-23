@@ -113,12 +113,15 @@ public class Mp3LibraryFragment extends Fragment {
 
         File file = new File(Environment.getExternalStorageDirectory() + FOLDER_LIB + fileName);
         if (file.exists()) {
-            Intent intent = new Intent(getActivity().getApplicationContext(), PlayMp3.class);
-            String[] val = new String[2];
-            val[0] = FOLDER_LIB;
-            val[1] = fileName;
-            intent.putExtra("DATA", val);
-            startActivity(intent);
+            Bundle bundle = new Bundle();
+            bundle.putString("Folder", FOLDER_LIB);
+            bundle.putString("Filename", fileName);
+            //set Fragmentclass Arguments
+            Mp3PlayerFragment mp3PlayerFragment = new Mp3PlayerFragment();
+            mp3PlayerFragment.setArguments(bundle);
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, mp3PlayerFragment)
+                    .commit();
         }
 
     }
@@ -142,7 +145,7 @@ public class Mp3LibraryFragment extends Fragment {
                     if (netCheck()) Toast.makeText(getActivity().getApplicationContext(), NET_ERROR,
                             Toast.LENGTH_SHORT).show();
                     else
-                        new DownloadFile(getActivity().getApplicationContext()).execute(URL_LIST[position], TITLES[position] + ".mp3");
+                        new DownloadFile(getActivity()).execute(URL_LIST[position], TITLES[position] + ".mp3");
                 } else {
                     playMp3(TITLES[position] + ".mp3");
                 }

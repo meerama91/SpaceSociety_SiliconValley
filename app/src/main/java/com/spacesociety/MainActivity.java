@@ -5,10 +5,8 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.*;
-import com.spacesociety.fragments.MainFragment;
-import com.spacesociety.fragments.Mp3LibraryFragment;
-import com.spacesociety.fragments.PdfLibraryFragment;
-import com.spacesociety.fragments.WebsiteFragment;
+import android.widget.FrameLayout;
+import com.spacesociety.fragments.*;
 
 
 public class MainActivity extends Activity {
@@ -18,10 +16,13 @@ public class MainActivity extends Activity {
     public Mp3LibraryFragment mp3LibraryFragment;
     public WebsiteFragment websiteFragment;
 
+    FrameLayout container;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        container = (FrameLayout) findViewById(R.id.container);
 
         //add color to action bar
         Window window = this.getWindow();
@@ -41,9 +42,6 @@ public class MainActivity extends Activity {
                     .add(R.id.container, mainFragment)
                     .commit();
         }
-
-
-
     }
 
     @Override
@@ -90,13 +88,19 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        if(mainFragment!=null && !mainFragment.isVisible()) {
+        Fragment fragment = getFragmentManager().findFragmentById(R.id.container);
+        if(fragment instanceof Mp3PlayerFragment) {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, mp3LibraryFragment)
+                    .commit();
+        } else if(mainFragment !=null && !mainFragment.isVisible()) {
             getFragmentManager().beginTransaction()
                     .replace(R.id.container, mainFragment)
                     .commit();
         } else {
             super.onBackPressed();
         }
+
     }
 
 }

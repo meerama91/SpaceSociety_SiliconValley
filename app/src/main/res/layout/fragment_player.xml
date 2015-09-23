@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white_color"
+              android:orientation="vertical"
+              android:weightSum="7">
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/light_main_color"
+            android:layout_gravity="center"
+            android:layout_weight="1.5">
+        <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="30dp"
+                android:src="@drawable/icon_volume"
+                android:layout_gravity="center"/>
+    </FrameLayout>
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_weight="2"
+            android:background="@color/light_main_color"
+            android:paddingBottom="15dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:weightSum="2">
+
+        <ImageView
+                android:id="@+id/media_pause"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:onClick="pause"
+                android:src="@drawable/icon_pause"
+                android:layout_weight="1"/>
+
+        <ImageView
+                android:id="@+id/media_play"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:onClick="play"
+                android:src="@drawable/icon_player"
+                android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/songname"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="SongName"
+            android:textColor="@color/main_text_color"
+            android:layout_margin="20dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_weight="1.5"/>
+
+    <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="false"/>
+
+    <TextView
+            android:id="@+id/songDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:text="songDuration"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/secondary_text_color"
+            android:layout_weight="2"/>
+
+
+</LinearLayout>
