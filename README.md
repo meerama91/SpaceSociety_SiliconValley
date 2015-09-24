@@ -6,6 +6,7 @@ TODO:
   - proper material design shadows
   - add swipe back
 * functionality and project structure
+  - configuration changes
   - icons indicated if file is already downloaded
   - show size of the file, duration in list
   - ask if user want to save file on device
@@ -14,5 +15,5 @@ TODO:
   - edit getting context
   - set stack of fragments with navigation
 * issues
-  - app crashes is there is not enough memory for the file
+  - app crashes if there is not enough memory for the file
   - songduration is not shown in player
