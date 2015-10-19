@@ -36,7 +36,7 @@
             android:name=".PlayMp3"
             android:label="@string/title_activity_play_mp3" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,9 +1,9 @@
 package com.spacesociety.fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -12,12 +12,8 @@ import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
-import com.spacesociety.FileDownloader;
-import com.spacesociety.PlayMp3;
+import android.widget.*;
+import com.spacesociety.utils.FileDownloader;
 import com.spacesociety.R;
 
 import java.io.File;
@@ -121,6 +117,7 @@ public class Mp3LibraryFragment extends Fragment {
             mp3PlayerFragment.setArguments(bundle);
             getFragmentManager().beginTransaction()
                     .replace(R.id.container, mp3PlayerFragment)
+                    .addToBackStack(null)
                     .commit();
         }
 
@@ -134,7 +131,7 @@ public class Mp3LibraryFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_mp3_library, container, false);
         mListView = (ListView)rootView.findViewById(R.id.listView_mp3_library_fragment);
-        mListView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.item_mp3_library, TITLES));
+        mListView.setAdapter(new AdapterMp3(getActivity(), R.layout.item_mp3_library, TITLES));
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -152,6 +149,30 @@ public class Mp3LibraryFragment extends Fragment {
             }
         });
         return rootView;
+    }
+
+    public class AdapterMp3 extends ArrayAdapter<String> {
+
+        private Activity context;
+        private String[] titles;
+        private int layout;
+
+        public AdapterMp3(Activity context, int layout, String[] titles) {
+            super(context, layout, titles);
+            this.context = context;
+            this.titles = titles;
+            this.layout = layout;
+        }
+
+        @Override
+        public View getView(int position, View view, ViewGroup parent) {
+            LayoutInflater inflater = context.getLayoutInflater();
+            View rowView = inflater.inflate(layout, null, true);
+            TextView txtTitle = (TextView) rowView.findViewById(R.id.textView_mp3_library_item);
+            txtTitle.setText(titles[position]);
+            return rowView;
+        }
+
     }
 
 }

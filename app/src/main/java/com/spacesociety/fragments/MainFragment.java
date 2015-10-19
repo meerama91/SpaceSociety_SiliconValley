@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import com.spacesociety.MainActivity;
+import com.spacesociety.activities.MainActivity;
 import com.spacesociety.R;
 
 /**
@@ -42,6 +42,7 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, mainActivity.pdfLibraryFragment)
+                        .addToBackStack(null)
                         .commit();
             }
         });
@@ -55,6 +56,7 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, mainActivity.mp3LibraryFragment)
+                        .addToBackStack(null)
                         .commit();
             }
         });
@@ -68,6 +70,7 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, mainActivity.websiteFragment)
+                        .addToBackStack(null)
                         .commit();
             }
         });

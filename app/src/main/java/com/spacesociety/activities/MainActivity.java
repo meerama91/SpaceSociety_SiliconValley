@@ -91,21 +91,4 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        Fragment fragment = getFragmentManager().findFragmentById(R.id.container);
-//        if(fragment instanceof Mp3PlayerFragment) {
-//            getFragmentManager().beginTransaction()
-//                    .replace(R.id.container, mp3LibraryFragment)
-//                    .commit();
-//        } else if(mainFragment !=null && !mainFragment.isVisible()) {
-//            getFragmentManager().beginTransaction()
-//                    .replace(R.id.container, mainFragment)
-//                    .commit();
-//        } else {
-//            super.onBackPressed();
-//        }
-//
-//    }
-
 }
