@@ -37,7 +37,6 @@
                 android:id="@+id/media_pause"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
-                android:onClick="pause"
                 android:src="@drawable/icon_pause"
                 android:layout_weight="1"/>
 
@@ -45,7 +44,6 @@
                 android:id="@+id/media_play"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
-                android:onClick="play"
                 android:src="@drawable/icon_player"
                 android:layout_weight="1"/>
 

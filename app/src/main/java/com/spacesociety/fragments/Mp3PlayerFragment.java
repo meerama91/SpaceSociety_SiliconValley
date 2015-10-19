@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import com.spacesociety.R;
@@ -47,6 +49,23 @@ public class Mp3PlayerFragment extends Fragment {
         String fileName = getArguments().getString("Filename");
         String folder = getArguments().getString("Folder");
         initializeViews(rootView, folder, fileName);
+
+        ImageView playButton = (ImageView) rootView.findViewById(R.id.media_play);
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                play();
+            }
+        });
+
+        ImageView pauseButton = (ImageView) rootView.findViewById(R.id.media_pause);
+        pauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pause();
+            }
+        });
+
         return rootView;
     }
 
@@ -93,8 +112,7 @@ public class Mp3PlayerFragment extends Fragment {
         );
     }
 
-    public void play(View view) {
-
+    public void play() {
         mediaPlayer.start();
         timeElapsed = mediaPlayer.getCurrentPosition();
         seekbar.setProgress((int) timeElapsed);
@@ -112,7 +130,7 @@ public class Mp3PlayerFragment extends Fragment {
         }
     };
 
-    public void pause(View view) {
+    public void pause() {
         mediaPlayer.pause();
     }
 }
