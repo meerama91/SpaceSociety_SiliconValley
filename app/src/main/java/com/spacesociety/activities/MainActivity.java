@@ -1,11 +1,11 @@
-package com.spacesociety;
+package com.spacesociety.activities;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.FrameLayout;
+import com.spacesociety.R;
 import com.spacesociety.fragments.*;
 
 
@@ -40,6 +40,7 @@ public class MainActivity extends Activity {
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, mainFragment)
+                    .addToBackStack(null)
                     .commit();
         }
     }
@@ -58,6 +59,7 @@ public class MainActivity extends Activity {
         if (id == R.id.action_main) {
             getFragmentManager().beginTransaction()
                     .replace(R.id.container, mainFragment)
+                    .addToBackStack(null)
                     .commit();
             return true;
         } else
@@ -65,6 +67,7 @@ public class MainActivity extends Activity {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.container, pdfLibraryFragment)
+                    .addToBackStack(null)
                     .commit();
             return true;
         } else
@@ -72,6 +75,7 @@ public class MainActivity extends Activity {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.container, mp3LibraryFragment)
+                    .addToBackStack(null)
                     .commit();
             return true;
         } else
@@ -79,6 +83,7 @@ public class MainActivity extends Activity {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.container, websiteFragment)
+                    .addToBackStack(null)
                     .commit();
             return true;
         }
@@ -86,21 +91,21 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        Fragment fragment = getFragmentManager().findFragmentById(R.id.container);
-        if(fragment instanceof Mp3PlayerFragment) {
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.container, mp3LibraryFragment)
-                    .commit();
-        } else if(mainFragment !=null && !mainFragment.isVisible()) {
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.container, mainFragment)
-                    .commit();
-        } else {
-            super.onBackPressed();
-        }
-
-    }
+//    @Override
+//    public void onBackPressed() {
+//        Fragment fragment = getFragmentManager().findFragmentById(R.id.container);
+//        if(fragment instanceof Mp3PlayerFragment) {
+//            getFragmentManager().beginTransaction()
+//                    .replace(R.id.container, mp3LibraryFragment)
+//                    .commit();
+//        } else if(mainFragment !=null && !mainFragment.isVisible()) {
+//            getFragmentManager().beginTransaction()
+//                    .replace(R.id.container, mainFragment)
+//                    .commit();
+//        } else {
+//            super.onBackPressed();
+//        }
+//
+//    }
 
 }
