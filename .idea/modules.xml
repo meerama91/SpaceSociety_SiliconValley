@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SpaceSociety_SiliconValley.iml" filepath="$PROJECT_DIR$/SpaceSociety_SiliconValley.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Space_sv.iml" filepath="$PROJECT_DIR$/Space_sv.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
