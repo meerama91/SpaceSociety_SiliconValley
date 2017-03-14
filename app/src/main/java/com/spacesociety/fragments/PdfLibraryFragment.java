@@ -1,11 +1,7 @@
-/*
-* created by Meera Mali, 2015.
-*
-*/
+package com.spacesociety.fragments;
 
-package com.spacesociety;
-
-import android.app.ListActivity;
+import android.app.Activity;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -16,17 +12,20 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.view.ViewGroup;
+import android.widget.*;
+import com.spacesociety.utils.FileDownloader;
+import com.spacesociety.R;
 
 import java.io.File;
 import java.io.IOException;
 
-public class PdfLibrary extends ListActivity {
-
+/**
+ * Created by julep on 9/17/15.
+ */
+public class PdfLibraryFragment extends Fragment {
     private static final String TITLES[] = {"ARLISS Experimental Rocketry Project with Ken Biba," +
             "May 13, 2015",
             "Mining the Moon with a Lunar Elevator with Charles Radley, May 2, 2015",
@@ -109,7 +108,7 @@ public class PdfLibrary extends ListActivity {
             try {
                 startActivity(intent);
             } catch (ActivityNotFoundException e) {
-                Toast.makeText(PdfLibrary.this, ERROR,
+                Toast.makeText(getActivity(), ERROR,
                         Toast.LENGTH_SHORT).show();
             }
         }
@@ -118,7 +117,7 @@ public class PdfLibrary extends ListActivity {
     public boolean netCheck() {
         boolean status = true;
         try {
-            ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = cm.getNetworkInfo(0);
             if (netInfo != null && netInfo.getState() == NetworkInfo.State.CONNECTED) {
                 status = false;
@@ -135,25 +134,56 @@ public class PdfLibrary extends ListActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setListAdapter(new ArrayAdapter<String>(this, R.layout.pdf_library, TITLES));
-        mListView = getListView();
-        mListView.setTextFilterEnabled(true);
+
+        getActivity().setTitle("PDF Library");
+
+        View rootView = inflater.inflate(R.layout.fragment_pdf_library, container, false);
+        mListView = (ListView)rootView.findViewById(R.id.listView_pdf_library_fragment);
+        mListView.setAdapter(new AdapterPdf(getActivity(), R.layout.item_pdf_library, TITLES));
+
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 File file = new File(Environment.getExternalStorageDirectory() + FOLDER_LIB + TITLES[position] + ".pdf");
                 if (!(file.exists())) {
-                    if (netCheck()) Toast.makeText(PdfLibrary.this, NET_ERROR,
+                    if (netCheck()) Toast.makeText(getActivity(), NET_ERROR,
                             Toast.LENGTH_SHORT).show();
                     else
-                        new DownloadFile(PdfLibrary.this).execute(URL_LIST[position], TITLES[position] + ".pdf");
+                        new DownloadFile(getActivity()).execute(URL_LIST[position], TITLES[position] + ".pdf");
                 } else readPdf(TITLES[position] + ".pdf");
 
 
             }
         });
+        return rootView;
+    }
+
+    public class AdapterPdf extends ArrayAdapter<String> {
+
+        private Activity context;
+        private String[] titles;
+        private int layout;
+
+        public AdapterPdf(Activity context, int layout, String[] titles) {
+            super(context, layout, titles);
+            this.context = context;
+            this.titles = titles;
+            this.layout = layout;
+        }
+
+        @Override
+        public View getView(int position, View view, ViewGroup parent) {
+            LayoutInflater inflater = context.getLayoutInflater();
+            View rowView = inflater.inflate(layout, null, true);
+            TextView txtTitle = (TextView) rowView.findViewById(R.id.textView_pdf_library_item);
+            txtTitle.setText(titles[position]);
+            return rowView;
+        }
+
     }
 
 }
+
+

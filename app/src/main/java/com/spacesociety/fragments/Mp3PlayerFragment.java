@@ -1,9 +1,6 @@
-package com.spacesociety;
+package com.spacesociety.fragments;
 
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
-import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -12,12 +9,22 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import com.spacesociety.R;
 
-public class PlayMp3 extends Activity {
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
+/**
+ * Created by julep on 9/22/15.
+ */
+public class Mp3PlayerFragment extends Fragment {
     private MediaPlayer mediaPlayer;
     public TextView duration;
     public TextView name;
@@ -25,29 +32,49 @@ public class PlayMp3 extends Activity {
     private double timeElapsed = 0, finalTime = 0;
     private Handler durationHandler = new Handler();
     private SeekBar seekbar;
-    private String[] val;
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         mediaPlayer.stop();
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.play_mp3);
-        Intent intent = getIntent();
-        val = intent.getStringArrayExtra("DATA");
-        initializeViews();
+
+        getActivity().setTitle("MP3 Player");
+
+        View rootView = inflater.inflate(R.layout.fragment_player, container, false);
+        String fileName = getArguments().getString("Filename");
+        String folder = getArguments().getString("Folder");
+        initializeViews(rootView, folder, fileName);
+
+        ImageView playButton = (ImageView) rootView.findViewById(R.id.media_play);
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                play();
+            }
+        });
+
+        ImageView pauseButton = (ImageView) rootView.findViewById(R.id.media_pause);
+        pauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pause();
+            }
+        });
+
+        return rootView;
     }
 
-    public void initializeViews() {
-        myUri = Uri.parse(Environment.getExternalStorageDirectory() + val[0] + val[1]);
+    public void initializeViews(View root, String folder, String fileName) {
+        myUri = Uri.parse(Environment.getExternalStorageDirectory() + folder + fileName);
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         try {
-            mediaPlayer.setDataSource(getApplicationContext(), myUri);
+            mediaPlayer.setDataSource(getActivity(), myUri);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,10 +84,10 @@ public class PlayMp3 extends Activity {
             e.printStackTrace();
         }
         finalTime = mediaPlayer.getDuration();
-        duration = (TextView) findViewById(R.id.songDuration);
-        name = (TextView) findViewById(R.id.songname);
-        name.setText(val[1]);
-        seekbar = (SeekBar) findViewById(R.id.seekBar);
+        duration = (TextView) root.findViewById(R.id.songDuration);
+        name = (TextView) root.findViewById(R.id.songname);
+        name.setText(fileName);
+        seekbar = (SeekBar) root.findViewById(R.id.seekBar);
         seekbar.setMax((int) finalTime);
         seekbar.setClickable(true);
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -85,8 +112,7 @@ public class PlayMp3 extends Activity {
         );
     }
 
-    public void play(View view) {
-
+    public void play() {
         mediaPlayer.start();
         timeElapsed = mediaPlayer.getCurrentPosition();
         seekbar.setProgress((int) timeElapsed);
@@ -104,8 +130,7 @@ public class PlayMp3 extends Activity {
         }
     };
 
-    public void pause(View view) {
+    public void pause() {
         mediaPlayer.pause();
     }
-
 }

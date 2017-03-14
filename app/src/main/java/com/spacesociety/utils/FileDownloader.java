@@ -2,7 +2,7 @@
 * created by Meera Mali, 2015.
 *
 */
-package com.spacesociety;
+package com.spacesociety.utils;
 
 import android.content.Context;
 import android.widget.Toast;

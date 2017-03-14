@@ -1,29 +1,28 @@
-/*
-* created by Meera Mali, 2015.
-*
-*/
+package com.spacesociety.fragments;
 
-package com.spacesociety;
-
-import android.app.ListActivity;
+import android.app.Activity;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.view.ViewGroup;
+import android.widget.*;
+import com.spacesociety.utils.FileDownloader;
+import com.spacesociety.R;
 
 import java.io.File;
 import java.io.IOException;
 
-public class Mp3Library extends ListActivity {
+/**
+ * Created by julep on 9/18/15.
+ */
+public class Mp3LibraryFragment extends Fragment {
 
     private static final String TITLES[] = {"Colonizing Mars with Pioneering Technologies ", "Data Science in the Space Age",
             "Mining the Moon with a Lunar Elevator with Charles Radley, May 2, 2015",
@@ -88,7 +87,7 @@ public class Mp3Library extends ListActivity {
     public boolean netCheck() {
         boolean status = true;
         try {
-            ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = cm.getNetworkInfo(0);
             if (netInfo != null && netInfo.getState() == NetworkInfo.State.CONNECTED) {
                 status = false;
@@ -110,38 +109,70 @@ public class Mp3Library extends ListActivity {
 
         File file = new File(Environment.getExternalStorageDirectory() + FOLDER_LIB + fileName);
         if (file.exists()) {
-            Intent intent = new Intent(Mp3Library.this, PlayMp3.class);
-            String[] val = new String[2];
-            val[0] = FOLDER_LIB;
-            val[1] = fileName;
-            intent.putExtra("DATA", val);
-            startActivity(intent);
+            Bundle bundle = new Bundle();
+            bundle.putString("Folder", FOLDER_LIB);
+            bundle.putString("Filename", fileName);
+            //set Fragmentclass Arguments
+            Mp3PlayerFragment mp3PlayerFragment = new Mp3PlayerFragment();
+            mp3PlayerFragment.setArguments(bundle);
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, mp3PlayerFragment)
+                    .addToBackStack(null)
+                    .commit();
         }
 
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setListAdapter(new ArrayAdapter<String>(this, R.layout.mp3_library, TITLES));
-        mListView = getListView();
-        mListView.setTextFilterEnabled(true);
+
+        getActivity().setTitle("MP3 Library");
+
+        View rootView = inflater.inflate(R.layout.fragment_mp3_library, container, false);
+        mListView = (ListView)rootView.findViewById(R.id.listView_mp3_library_fragment);
+        mListView.setAdapter(new AdapterMp3(getActivity(), R.layout.item_mp3_library, TITLES));
+
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 File file = new File(Environment.getExternalStorageDirectory() + FOLDER_LIB + TITLES[position] + ".mp3");
                 if (!(file.exists())) {
-                    if (netCheck()) Toast.makeText(Mp3Library.this, NET_ERROR,
+                    if (netCheck()) Toast.makeText(getActivity().getApplicationContext(), NET_ERROR,
                             Toast.LENGTH_SHORT).show();
                     else
-                        new DownloadFile(Mp3Library.this).execute(URL_LIST[position], TITLES[position] + ".mp3");
+                        new DownloadFile(getActivity()).execute(URL_LIST[position], TITLES[position] + ".mp3");
                 } else {
                     playMp3(TITLES[position] + ".mp3");
                 }
             }
         });
+        return rootView;
     }
 
+    public class AdapterMp3 extends ArrayAdapter<String> {
+
+        private Activity context;
+        private String[] titles;
+        private int layout;
+
+        public AdapterMp3(Activity context, int layout, String[] titles) {
+            super(context, layout, titles);
+            this.context = context;
+            this.titles = titles;
+            this.layout = layout;
+        }
+
+        @Override
+        public View getView(int position, View view, ViewGroup parent) {
+            LayoutInflater inflater = context.getLayoutInflater();
+            View rowView = inflater.inflate(layout, null, true);
+            TextView txtTitle = (TextView) rowView.findViewById(R.id.textView_mp3_library_item);
+            txtTitle.setText(titles[position]);
+            return rowView;
+        }
+
+    }
 
 }
